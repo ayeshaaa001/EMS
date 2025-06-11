@@ -1,0 +1,208 @@
+
+:root {
+  --gunmetal: #2A2D34;
+  --roman-silver: #84828F;
+  --cool-grey: #8B8C89;
+  --silver-sand: #B4B8C5;
+  --metallic-silver: #A6A9B6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 6rem;
+  background: rgba(164, 167, 174, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-size: 35px;
+  font-weight: 700;
+  color: var(--gunmetal);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--gunmetal);
+  font-size: 25px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--roman-silver);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  font-size: larger;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login {
+  background: transparent;
+  border: 2px solid var(--gunmetal);
+  color: var(--gunmetal);
+}
+
+.login:hover {
+  background: var(--gunmetal);
+  color: white;
+}
+
+.signup {
+  background: var(--gunmetal);
+  color: white;
+  border: 2px solid transparent;
+}
+
+.signup:hover {
+  background: transparent;
+  color: var(--gunmetal); 
+}
+
+.slider-section {
+margin-top: 100px;
+height: 80vh;
+position: relative;
+}
+
+.slider-container {
+position: relative;
+height: 100%;
+overflow: hidden;
+border-radius: 15px;
+margin: 0 2rem;
+}
+
+.slider {
+height: 100%;
+position: relative;
+}
+
+.slide {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+opacity: 0;
+transition: opacity 1s ease-in-out;
+background-size: cover;
+background-position: center;
+}
+
+.slide.active {
+opacity: 1;
+}
+
+.slide-content {
+position: absolute;
+bottom: 5rem;
+left: 5rem;
+background: rgba(164, 167, 174, 0.25);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+padding: 2rem;
+border-radius: 10px;
+max-width: 600px;
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.slide-content h2 {
+color: var(--gunmetal);
+font-size: 2.5rem;
+margin-bottom: 1rem;
+}
+
+.slide-content p {
+color: var(--gunmetal);
+font-size: 1.2rem;
+margin-bottom: 1.5rem;
+}
+
+.slider-nav {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+width: 100%;
+display: flex;
+justify-content: space-between;
+padding: 0 2rem;
+opacity: 0;
+transition: opacity 0.3s ease;
+}
+
+.slider-container:hover .slider-nav {
+opacity: 1;
+}
+
+.slider-prev,
+.slider-next {
+background: rgba(166, 169, 182, 0.7);
+color: var(--gunmetal);
+border: none;
+padding: 1rem 1.5rem;
+border-radius: 50%;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+background: var(--roman-silver);
+color: white;
+}
+
+.slider-dots {
+position: absolute;
+bottom: 2rem;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 1rem;
+}
+
+.slider-dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background: var(--silver-sand);
+border: none;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+background: var(--gunmetal);
+transform: scale(1.2);
+}

@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More | MULAQAATs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS from previous pages with additions for learn page */
+        :root {
+            --gunmetal: #2A2D34;
+            --roman-silver: #84828F;
+            --cool-grey: #8B8C89;
+            --silver-sand: #B4B8C5;
+            --metallic-silver: #A6A9B6;
+            --primary-accent: #4F46E5;
+            --secondary-accent: #10B981;
+            --dark-accent: #4338ca;
+            --light-bg: #f8f9ff;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--silver-sand), var(--metallic-silver));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--gunmetal);
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 6rem;
+            background: rgba(164, 167, 174, 0.25);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gunmetal);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gunmetal);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary-accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .login {
+            background: transparent;
+            border-color: var(--gunmetal);
+            color: var(--gunmetal);
+
+
+        }
+
+        .login:hover {
+            background: var(--gunmetal);
+            border-color: var(--gunmetal);
+            color: white;
+        }
+
+        .signup {
+            background: var(--gunmetal);
+            border-color: var(--gunmetal);
+            color: white;
+        }
+
+        .signup:hover {
+            background: transparent;
+            border-color: var(--gunmetal);
+            color: var(--gunmetal);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gunmetal);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .overlay-content a {
+            color: var(--gunmetal);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            width: 100%;
+        }
+
+        .overlay-content .btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--gunmetal);
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1.5rem 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links,
+            .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .overlay-content a {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1rem;
+            }
+        }
+
+
+        /* Hero Section */
+        .learn-hero {
+            padding: 200px 2rem 100px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.9), rgba(245, 247, 255, 0.7));
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .learn-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--primary-accent), var(--dark-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: black;
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(79, 70, 229, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: var(--roman-silver);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-accent);
+            color: white;
+            padding: 1.1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(79, 70, 229, 0.3);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Resources Section */
+        .resources-section {
+            padding: 6rem 2rem;
+            background: var(--light-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--roman-silver);
+            line-height: 1.7;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .resource-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .resource-card:hover .resource-image img {
+            transform: scale(1.05);
+        }
+
+        .resource-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-category {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-accent);
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+        }
+
+        .resource-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gunmetal);
+        }
+
+        .resource-description {
+            color: var(--roman-silver);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .resource-link:hover {
+            color: var(--dark-accent);
+            gap: 0.8rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .faq-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .faq-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 10px;
+        }
+
+        .faq-subtitle {
+            font-size: 1.2rem;
+            color: var(--roman-silver);
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .faq-item {
+            background: var(--light-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .faq-item.active {
+            border-color: var(--primary-accent);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.8rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gunmetal);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.8rem 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            color: var(--roman-silver);
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.8rem 1.8rem;
+            max-height: 500px;
+        }
+
+        /* Policies Section */
+        .policies-section {
+            padding: 6rem 2rem;
+            background: var(--light-bg);
+        }
+
+        .policies-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .policies-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .policies-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .policies-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 10px;
+        }
+
+        .policies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .policy-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary-accent);
+        }
+
+        .policy-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gunmetal);
+        }
+
+        .policy-description {
+            color: var(--roman-silver);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .policy-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .policy-link:hover {
+            color: var(--dark-accent);
+            gap: 0.8rem;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-accent), var(--dark-accent));
+            color: white;
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1.2rem 2.5rem;
+            background: white;
+            color: var(--primary-accent);
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .cta-btn:hover {
+            background: var(--light-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--gunmetal);
+            color: var(--silver-sand);
+            padding: 6rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-accent);
+            border-radius: 10px;
+        }
+
+        .footer-about p {
+            color: var(--roman-silver);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            color: var(--silver-sand);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary-accent);
+            transform: translateY(-5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--roman-silver);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-accent);
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            color: var(--primary-accent);
+            width: 20px;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--roman-silver);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-contact i {
+            color: var(--primary-accent);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .newsletter-form {
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--dark-accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 3rem 0 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: var(--roman-silver);
+            font-size: 1rem;
+        }
+
+        .footer-bottom a {
+            color: var(--silver-sand);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--primary-accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1.5rem 3rem;
+            }
+
+            .hero-title {
+                font-size: 3.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.2rem;
+            }
+
+            .nav-links,
+            .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .learn-hero {
+                padding: 180px 1.5rem 80px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title,
+            .faq-title,
+            .policies-title {
+                font-size: 2.3rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .learn-hero {
+                padding: 160px 1rem 60px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title,
+            .faq-title,
+            .policies-title {
+                font-size: 1.8rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+
+    <nav>
+        <a href="index.html" class="logo">MULAQAAT</a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="ruevents.html">Events</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+              <a href="learn.html">Learn More</a>
+        </div>
+
+        <div class="auth-buttons">
+            <a href="login.html" class="btn login">Log In</a>
+            <a href="signup.html" class="btn signup">Sign Up</a>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay">
+        <div class="overlay-content">
+            <a href="#" class="close-btn" id="closeMenu">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="ruevents.html">Events</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="learn.html">Learn More</a>
+            <a href="login.html" class="btn login">Log In</a>
+            <a href="signup.html" class="btn signup">Sign Up</a>
+        </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="learn-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Event Planning Resources & Guides</h1>
+            <p class="hero-subtitle">Discover expert tips, industry insights, and valuable resources to help you plan
+                your perfect event. Our comprehensive guides cover everything from budgeting to vendor selection.</p>
+            <div class="hero-buttons">
+                <a href="#resources" class="btn-primary"><i class="fas fa-book-open"></i> Explore Resources</a>
+                <a href="#faq" class="btn-primary"><i class="fas fa-question-circle"></i> View FAQs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources-section" id="resources">
+        <div class="section-header">
+            <h2 class="section-title">Educational Resources</h2>
+            <p class="section-subtitle">Browse our collection of guides, checklists, and articles to help you plan every
+                aspect of your event</p>
+        </div>
+
+        <div class="resources-grid">
+            <!-- Resource 1 -->
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1532710093739-9470acff878f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Budget Planning">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-category">Budgeting</span>
+                    <h3 class="resource-title">Ultimate Event Budget Planner</h3>
+                    <p class="resource-description">Learn how to create a comprehensive budget for any event type.
+                        Includes templates, cost-saving tips, and expense tracking strategies.</p>
+                    <a href="#" class="resource-link">Download Guide <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Resource 2 -->
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Vendor Selection">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-category">Vendors</span>
+                    <h3 class="resource-title">Vendor Selection Handbook</h3>
+                    <p class="resource-description">Our comprehensive guide to selecting the best vendors for your
+                        event. Includes interview questions, contract tips, and red flags to watch for.</p>
+                    <a href="#" class="resource-link">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Resource 3 -->
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2065&q=80"
+                        alt="Timeline Planning">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-category">Planning</span>
+                    <h3 class="resource-title">Event Timeline Masterclass</h3>
+                    <p class="resource-description">Create the perfect event timeline with our step-by-step guide.
+                        Includes templates for weddings, corporate events, and social gatherings.</p>
+                    <a href="#" class="resource-link">Access Masterclass <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Resource 4 -->
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Virtual Events">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-category">Technology</span>
+                    <h3 class="resource-title">Virtual Event Production Guide</h3>
+                    <p class="resource-description">Everything you need to know about producing engaging virtual events.
+                        Tech requirements, platform comparisons, and engagement strategies.</p>
+                    <a href="#" class="resource-link">Download eBook <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Resource 5 -->
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+                        alt="Event Marketing">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-category">Marketing</span>
+                    <h3 class="resource-title">Event Promotion Playbook</h3>
+                    <p class="resource-description">Learn how to effectively promote your event across multiple
+                        channels. Social media strategies, email campaigns, and partnership ideas.</p>
+                    <a href="#" class="resource-link">Get Playbook <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Resource 6 -->
+            <div class="resource-card">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Sustainability">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-category">Sustainability</span>
+                    <h3 class="resource-title">Green Event Planning Guide</h3>
+                    <p class="resource-description">Plan eco-friendly events with our sustainability guide. Waste
+                        reduction, ethical sourcing, and carbon footprint management strategies.</p>
+                    <a href="#" class="resource-link">Read Guide <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <div class="faq-header">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <p class="faq-subtitle">Find answers to common questions about event planning and our services</p>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How far in advance should I book event vendors?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Booking timelines vary by vendor type and event size. For popular vendors (venues,
+                            photographers, caterers), we recommend booking 9-12 months in advance for weddings and 6-9
+                            months for corporate events. For other vendors, 4-6 months is typically sufficient.
+                            High-demand dates (summer weekends, holidays) may require even earlier booking.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is included in your full-service event planning package?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our full-service package includes comprehensive planning from concept to execution: venue
+                            selection, vendor management, budget creation and tracking, timeline development, design
+                            conceptualization, day-of coordination, and post-event evaluation. We handle all logistics
+                            and communications, allowing you to enjoy the event without stress.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do you handle last-minute changes or emergencies?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our team is trained to handle unexpected situations with professionalism. We maintain
+                            detailed contingency plans for common issues (weather, vendor cancellations, etc.) and have
+                            established relationships with backup vendors. On event day, our team includes a dedicated
+                            problem-solving manager to address any issues immediately and discreetly.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can you work within my specific budget constraints?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. We specialize in creating exceptional events at various budget levels. After
+                            understanding your priorities, we'll allocate resources strategically, suggest cost-saving
+                            alternatives, and leverage our vendor relationships to maximize value. We're transparent
+                            about costs and will provide options at different price points for each element.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do you incorporate sustainability into events?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We prioritize sustainability through: digital invitations, locally-sourced catering, reusable
+                            decor, waste reduction plans, carbon offset programs, and ethical vendor selection. We'll
+                            develop a customized sustainability plan for your event with measurable goals and can
+                            provide reporting on your event's environmental impact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies Section -->
+    <section class="policies-section">
+        <div class="policies-container">
+            <div class="policies-header">
+                <h2 class="policies-title">Our Policies & Standards</h2>
+                <p class="section-subtitle">Learn about our commitment to excellence and client protection</p>
+            </div>
+
+            <div class="policies-grid">
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="policy-title">Privacy Policy</h3>
+                    <p class="policy-description">How we protect your personal information and respect your privacy
+                        throughout our collaboration.</p>
+                    <a href="pp.html" class="policy-link">Read Policy <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="policy-title">Terms of Service</h3>
+                    <p class="policy-description">The legal agreement between you and MULAQAAT regarding our event
+                        planning services.</p>
+                    <a href="pp.html" class="policy-link">View Terms <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3 class="policy-title">Cancellation Policy</h3>
+                    <p class="policy-description">Our guidelines for event cancellations, rescheduling, and associated
+                        fees.</p>
+                    <a href="pp.html" class="policy-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="policy-card">
+                    <div class="policy-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="policy-title">Sustainability Commitment</h3>
+                    <p class="policy-description">Our environmental responsibility practices and how we implement them
+                        in events.</p>
+                    <a href="pp.html" class="policy-link">Read Commitment <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="cta-container">
+            <h2 class="cta-title">Still Have Questions?</h2>
+            <p class="cta-text">Our event specialists are ready to provide personalized guidance for your specific needs
+            </p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-btn"><i class="fas fa-envelope"></i> Contact Us</a>
+                <a href="sc.html" class="cta-btn"><i class="fas fa-calendar-check"></i> Schedule Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About MULAQAAT</h3>
+                <div class="footer-about">
+                    <p>Creating unforgettable experiences through exceptional event planning since 2015. We transform
+                        visions into reality with creativity and precision.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                     
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="ruevents.html"><i class="fas fa-chevron-right"></i> Events</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    <li><a href="learn.html"><i class="fas fa-chevron-right"></i> Learn More</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-map-marker-alt"></i> Qazi Street, Citi Housing, Jhelum, Punjab 49600</li>
+                    <li><i class="fas fa-phone"></i> +92 313-4582342</li>
+                    <li><i class="fas fa-envelope"></i> info@mulaqaat.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for event inspiration and exclusive offers</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2015-2025 MULAQAAT. All rights reserved.
+                <a href="learn.html">Privacy Policy</a> |
+                <a href="learn.html">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Resource card hover effect
+        document.querySelectorAll('.resource-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px)';
+                this.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.15)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.08)';
+            });
+        });
+    </script>
+</body>
+
+</html>

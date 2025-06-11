@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policies | MULAQAAT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS from original file with additions for policies page */
+        :root {
+            --gunmetal: #2A2D34;
+            --roman-silver: #84828F;
+            --cool-grey: #8B8C89;
+            --silver-sand: #B4B8C5;
+            --metallic-silver: #A6A9B6;
+            --primary-accent: #4F46E5;
+            --secondary-accent: #10B981;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--silver-sand), var(--metallic-silver));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 6rem;
+            background: rgba(164, 167, 174, 0.25);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gunmetal);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gunmetal);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary-accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .login {
+            background: transparent;
+            border-color: var(--gunmetal);
+            color: var(--gunmetal);
+        }
+
+        .login:hover {
+            background: var(--gunmetal);
+            border-color: var(--gunmetal);
+            color: white;
+        }
+
+        .signup {
+            background: var(--gunmetal);
+            border-color: var(--gunmetal);
+            color: white;
+        }
+
+        .signup:hover {
+            background: transparent;
+            border-color: var(--gunmetal);
+            color: var(--gunmetal);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gunmetal);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .overlay-content a {
+            color: var(--gunmetal);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            width: 100%;
+        }
+
+        .overlay-content .btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--gunmetal);
+            cursor: pointer;
+        }
+
+        /* Policies Section */
+        .policies-section {
+            display: flex;
+            padding: 140px 2rem 4rem;
+            flex-grow: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            width: 280px;
+            position: sticky;
+            top: 140px;
+            height: fit-content;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            color: var(--gunmetal);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-accent);
+        }
+
+        .policy-nav {
+            list-style: none;
+        }
+
+        .policy-nav li {
+            margin-bottom: 0.8rem;
+        }
+
+        .policy-nav a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: var(--gunmetal);
+            border-radius: 0.8rem;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .policy-nav a:hover,
+        .policy-nav a.active {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-accent);
+        }
+
+        .policy-nav a i {
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .policy-header h1 {
+            font-size: 2.5rem;
+            color: var(--gunmetal);
+            margin-bottom: 1rem;
+        }
+
+        .policy-header p {
+            color: var(--roman-silver);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .policy-card {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .policy-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .policy-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-accent);
+            font-size: 1.8rem;
+        }
+
+        .policy-title i {
+            background: rgba(79, 70, 229, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .policy-content h3 {
+            color: var(--gunmetal);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .policy-content p {
+            color: var(--gunmetal);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .policy-content ul {
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .policy-content li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            color: var(--gunmetal);
+        }
+
+        .highlight-box {
+            background: rgba(79, 70, 229, 0.05);
+            border-left: 4px solid var(--primary-accent);
+            padding: 1.5rem;
+            border-radius: 0 0.8rem 0.8rem 0;
+            margin: 1.5rem 0;
+        }
+
+        .last-updated {
+            color: var(--roman-silver);
+            font-style: italic;
+            margin-top: 2rem;
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        /* Footer Styles */
+         .main-footer {
+            background: var(--gunmetal);
+            color: var(--silver-sand);
+            padding: 6rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-accent);
+            border-radius: 10px;
+        }
+
+        .footer-about p {
+            color: var(--roman-silver);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            color: var(--silver-sand);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary-accent);
+            transform: translateY(-5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--roman-silver);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-accent);
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            color: var(--primary-accent);
+            width: 20px;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--roman-silver);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-contact i {
+            color: var(--primary-accent);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .newsletter-form {
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--dark-accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 3rem 0 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: var(--roman-silver);
+            font-size: 1rem;
+        }
+
+        .footer-bottom a {
+            color: var(--silver-sand);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--primary-accent);
+        }
+       
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1.5rem 3rem;
+            }
+            
+            .policies-section {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links,
+            .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .policy-header h1 {
+                font-size: 2rem;
+            }
+            
+            .policy-title {
+                font-size: 1.5rem;
+            }
+            
+            .content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .policies-section {
+                padding: 120px 1rem 2rem;
+            }
+            
+            .sidebar {
+                padding: 1.5rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .policy-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .policy-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html" class="logo">MULAQAAT</a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="ruevents.html">Events</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="learn.html">Learn More</a>
+        </div>
+
+        <div class="auth-buttons">
+            <a href="login.html" class="btn login">Log In</a>
+            <a href="signup.html" class="btn signup">Sign Up</a>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay">
+        <div class="overlay-content">
+            <a href="#" class="close-btn" id="closeMenu">&times;</a>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="ruevents.html">Events</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="learn.html">Learn More</a>
+            <a href="login.html" class="btn login">Log In</a>
+            <a href="signup.html" class="btn signup">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Policies Section -->
+    <section class="policies-section">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h2 class="sidebar-title">Our Policies</h2>
+            <ul class="policy-nav">
+                <li><a href="#privacy" class="active"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
+                <li><a href="#terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                <li><a href="#cancellation"><i class="fas fa-ban"></i> Cancellation Policy</a></li>
+                <li><a href="#sustainability"><i class="fas fa-leaf"></i> Sustainability Commitment</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <div class="policy-header">
+                <h1>Our Policies & Commitments</h1>
+                <p>Transparency and trust are at the core of everything we do. Explore our policies to understand how we protect your rights and uphold our commitments.</p>
+            </div>
+
+            <!-- Privacy Policy -->
+            <div class="policy-card" id="privacy">
+                <div class="policy-title">
+                    <i class="fas fa-user-shield"></i>
+                    <h2>Privacy Policy</h2>
+                </div>
+                <div class="policy-content">
+                    <p>At MULAQAAT, we are committed to protecting your privacy and ensuring the security of your personal information. This policy outlines how we collect, use, and safeguard your data.</p>
+                    
+                    <h3>Information We Collect</h3>
+                    <p>We may collect the following types of information:</p>
+                    <ul>
+                        <li><strong>Personal Identification:</strong> Name, email address, phone number, etc.</li>
+                        <li><strong>Event Information:</strong> Details about events you create or attend</li>
+                        <li><strong>Payment Details:</strong> Necessary information to process transactions (handled securely by our payment partners)</li>
+                        <li><strong>Technical Data:</strong> IP address, browser type, device information, and usage patterns</li>
+                    </ul>
+                    
+                    <h3>How We Use Your Information</h3>
+                    <ul>
+                        <li>To provide and improve our services</li>
+                        <li>To process transactions and send confirmations</li>
+                        <li>To communicate with you about events, updates, and promotions</li>
+                        <li>To analyze usage patterns and enhance user experience</li>
+                        <li>To comply with legal obligations</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p>We never sell your personal information to third parties. We only share data with trusted partners when necessary to provide our services, and we ensure they maintain the same level of security and confidentiality.</p>
+                    </div>
+                    
+                    <h3>Data Security</h3>
+                    <p>We implement industry-standard security measures including encryption, secure servers, and regular security audits to protect your information from unauthorized access, alteration, or destruction.</p>
+                    
+                    <p>For more details on how we handle your data, please contact our Privacy Officer at privacy@mulaqaat.com.</p>
+                    
+                    <div class="last-updated">Last Updated: June 9, 2025</div>
+                </div>
+            </div>
+
+            <!-- Terms of Service -->
+            <div class="policy-card" id="terms">
+                <div class="policy-title">
+                    <i class="fas fa-file-contract"></i>
+                    <h2>Terms of Service</h2>
+                </div>
+                <div class="policy-content">
+                    <p>By using MULAQAAT's services, you agree to comply with and be bound by the following terms and conditions. Please read them carefully.</p>
+                    
+                    <h3>Acceptance of Terms</h3>
+                    <p>Your access to and use of the MULAQAAT platform constitutes your agreement to these Terms of Service and all applicable laws and regulations.</p>
+                    
+                    <h3>User Responsibilities</h3>
+                    <ul>
+                        <li>You must be at least 18 years old to use our services</li>
+                        <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+                        <li>You agree to provide accurate and current information</li>
+                        <li>You will not use our platform for any illegal or unauthorized purpose</li>
+                    </ul>
+                    
+                    <h3>Event Creation and Management</h3>
+                    <p>When creating events on MULAQAAT:</p>
+                    <ul>
+                        <li>You are responsible for the accuracy of event information</li>
+                        <li>You must comply with all applicable laws and regulations</li>
+                        <li>You grant MULAQAAT a license to display and promote your event content</li>
+                    </ul>
+                    
+                    <h3>Intellectual Property</h3>
+                    <p>All content on the MULAQAAT platform, including text, graphics, logos, and software, is the property of MULAQAAT or its content suppliers and protected by intellectual property laws.</p>
+                    
+                    <h3>Limitation of Liability</h3>
+                    <p>MULAQAAT shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our services or inability to use our services.</p>
+                    
+                    <div class="last-updated">Last Updated: June 9, 2025</div>
+                </div>
+            </div>
+
+            <!-- Cancellation Policy -->
+            <div class="policy-card" id="cancellation">
+                <div class="policy-title">
+                    <i class="fas fa-ban"></i>
+                    <h2>Cancellation Policy</h2>
+                </div>
+                <div class="policy-content">
+                    <p>We understand that plans can change. Our cancellation policy is designed to be fair to both event organizers and attendees.</p>
+                    
+                    <h3>For Event Attendees</h3>
+                    <ul>
+                        <li><strong>Standard Events:</strong> Cancellations made 72 hours or more before the event receive a full refund. Cancellations within 72 hours are non-refundable.</li>
+                        <li><strong>Premium Events:</strong> Cancellations made 7 days or more before the event receive a full refund. Cancellations within 7 days receive a 50% refund.</li>
+                        <li><strong>Digital Events:</strong> No refunds once access has been provided.</li>
+                    </ul>
+                    
+                    <h3>For Event Organizers</h3>
+                    <p>If you need to cancel or reschedule your event:</p>
+                    <ul>
+                        <li>Notify us at least 14 days before the event date for a full refund of our service fees</li>
+                        <li>Cancellations between 7-14 days before the event receive a 50% refund</li>
+                        <li>Cancellations within 7 days are non-refundable</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p>In case of events canceled due to unforeseen circumstances (natural disasters, pandemics, etc.), we will work with you to reschedule or provide credit for future events.</p>
+                    </div>
+                    
+                    <h3>How to Cancel</h3>
+                    <p>To cancel an event or registration:</p>
+                    <ol>
+                        <li>Log in to your MULAQAAT account</li>
+                        <li>Navigate to "My Events" or "My Registrations"</li>
+                        <li>Select the event and choose "Cancel"</li>
+                        <li>Follow the on-screen instructions</li>
+                    </ol>
+                    
+                    <p>For assistance, contact our support team at support@mulaqaat.com or call +92 313-4582342.</p>
+                    
+                    <div class="last-updated">Last Updated: June 9, 2025</div>
+                </div>
+            </div>
+
+            <!-- Sustainability Commitment -->
+            <div class="policy-card" id="sustainability">
+                <div class="policy-title">
+                    <i class="fas fa-leaf"></i>
+                    <h2>Sustainability Commitment</h2>
+                </div>
+                <div class="policy-content">
+                    <p>At MULAQAAT, we believe in creating memorable events while minimizing our environmental impact. Our sustainability commitment guides every aspect of our operations.</p>
+                    
+                    <h3>Our Environmental Pledge</h3>
+                    <ul>
+                        <li>Reduce carbon emissions from our events by 50% by 2030</li>
+                        <li>Achieve zero waste to landfill for our operations by 2028</li>
+                        <li>Source 100% renewable energy for our offices by 2026</li>
+                        <li>Plant 10,000 trees annually through our reforestation program</li>
+                    </ul>
+                    
+                    <h3>Green Event Practices</h3>
+                    <p>We encourage and support sustainable event planning through:</p>
+                    <ul>
+                        <li><strong>Digital Solutions:</strong> Promoting paperless ticketing and digital event materials</li>
+                        <li><strong>Sustainable Venues:</strong> Prioritizing venues with green certifications</li>
+                        <li><strong>Waste Reduction:</strong> Implementing comprehensive recycling and composting programs</li>
+                        <li><strong>Local Sourcing:</strong> Supporting local vendors and sustainable catering options</li>
+                        <li><strong>Carbon Offsetting:</strong> Offering carbon offset options for event travel</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p>We're proud to be certified Carbon Neutral since 2023 and are actively working toward becoming a Certified B Corporation.</p>
+                    </div>
+                    
+                    <h3>Partnerships for Change</h3>
+                    <p>We collaborate with environmental organizations including:</p>
+                    <ul>
+                        <li>Green Events International</li>
+                        <li>Sustainable Events Alliance</li>
+                        <li>Global Reforestation Initiative</li>
+                        <li>Clean Oceans Project</li>
+                    </ul>
+                    
+                    <h3>Our Progress</h3>
+                    <p>Since launching our sustainability program in 2020:</p>
+                    <ul>
+                        <li>Reduced paper usage by 92% through digital solutions</li>
+                        <li>Diverted 85% of event waste from landfills</li>
+                        <li>Offset 1,200 tons of CO2 emissions</li>
+                        <li>Supported 15 local environmental initiatives</li>
+                    </ul>
+                    
+                    <p>We're committed to transparent reporting on our sustainability journey. View our annual Sustainability Report on our website.</p>
+                    
+                    <div class="last-updated">Last Updated: June 9, 2025</div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About MULAQAAT</h3>
+                <div class="footer-about">
+                    <p>Creating unforgettable experiences through exceptional event planning since 2015. We transform
+                        visions into reality with creativity and precision.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                     
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="ruevents.html"><i class="fas fa-chevron-right"></i> Events</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    <li><a href="learn.html"><i class="fas fa-chevron-right"></i> Learn More</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-map-marker-alt"></i> Qazi Street, Citi Housing, Jhelum, Punjab 49600</li>
+                    <li><i class="fas fa-phone"></i> +92 313-4582342</li>
+                    <li><i class="fas fa-envelope"></i> info@mulaqaat.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for event inspiration and exclusive offers</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2015-2025 MULAQAAT. All rights reserved.
+                <a href="learn.html">Privacy Policy</a> |
+                <a href="learn.html">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function () {
+            document.querySelector('.mobile-overlay').style.display = 'flex';
+        });
+
+        document.querySelector('.close-btn').addEventListener('click', function () {
+            document.querySelector('.mobile-overlay').style.display = 'none';
+        });
+
+        // Smooth scrolling for policy navigation
+        document.querySelectorAll('.policy-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.policy-nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 120,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight current section in sidebar as user scrolls
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.policy-card');
+            const navLinks = document.querySelectorAll('.policy-nav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Set current year in footer
+        document.querySelector('.footer-bottom p').innerHTML = 
+            document.querySelector('.footer-bottom p').innerHTML.replace('2015', '2015-' + new Date().getFullYear());
+    </script>
+</body>
+</html>

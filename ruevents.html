@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | MULAQAAT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gunmetal: #2A2D34;
+            --roman-silver: #84828F;
+            --cool-grey: #8B8C89;
+            --silver-sand: #B4B8C5;
+            --metallic-silver: #A6A9B6;
+            --primary-accent: #4F46E5;
+            --secondary-accent: #10B981;
+            --dark-accent: #4338ca;
+            --light-bg: #f8f9ff;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--silver-sand), var(--metallic-silver));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--gunmetal);
+            overflow-x: hidden;
+        }
+
+        /* Animated Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(79, 70, 229, 0.1);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-1000px) translateX(1000px) rotate(720deg); opacity: 0; }
+        }
+
+        /* Navigation Bar */
+       
+  nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 6rem;
+            background: rgba(164, 167, 174, 0.25);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gunmetal);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gunmetal);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary-accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .login {
+            background: transparent;
+            border-color: var(--gunmetal);
+            color: var(--gunmetal);
+        }
+
+        .login:hover {
+            background: var(--gunmetal);
+            border-color: var(--gunmetal);
+            color: white;
+        }
+
+        .signup {
+            background: var(--gunmetal);
+            border-color: var(--gunmetal);
+            color: white;
+        }
+
+        .signup:hover {
+            background: transparent;
+            border-color: var(--gunmetal);
+            color: var(--gunmetal);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gunmetal);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .overlay-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .overlay-content a {
+            color: var(--gunmetal);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            width: 100%;
+        }
+
+        .overlay-content .btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--gunmetal);
+            cursor: pointer;
+        }
+
+
+        /* Hero Section */
+        .hero {
+            padding: 200px 2rem 100px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(120deg, rgba(255,255,255,0.9), rgba(245,247,255,0.7));
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(79,70,229,0.08) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 550;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--primary-accent), var(--dark-accent));
+            color: rgb(50, 46, 46);
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(79, 70, 229, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: var(--roman-silver);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-accent);
+            color: white;
+            padding: 1.1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(79, 70, 229, 0.3);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-accent);
+            padding: 1.1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--primary-accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Events Gallery */
+        .gallery-section {
+            padding: 6rem 2rem;
+            background: var(--light-bg);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--roman-silver);
+            line-height: 1.7;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            color: var(--gunmetal);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-accent);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 380px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .gallery-item.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 60%);
+            padding: 2rem;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .event-title {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
+            flex-wrap: wrap;
+        }
+
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .event-description {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .gallery-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .action-btn:hover {
+            background: var(--primary-accent);
+            transform: translateY(-3px);
+        }
+
+        /* Events Section Styles */
+.events-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(to right, var(--silver-sand), var(--metallic-silver));
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.event-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+.event-date {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
+
+.date-day {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-accent);
+}
+
+.date-month {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--gunmetal);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.event-content {
+  padding: 1.5rem;
+}
+
+.event-title {
+  font-size: 1.4rem;
+  color: var(--gunmetal);
+  margin-bottom: 0.8rem;
+}
+
+.event-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.event-location,
+.event-time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--roman-silver);
+  font-size: 0.9rem;
+}
+
+.event-description {
+  color: var(--cool-grey);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.event-cta {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  background: var(--primary-accent);
+  color: white;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.event-cta:hover {
+  background: #4338ca;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .events-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .events-section {
+      padding: 4rem 1.5rem;
+  }
+
+  .events-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+  }
+
+  .event-image {
+      height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-date {
+      padding: 0.6rem 1rem;
+  }
+
+  .date-day {
+      font-size: 1.2rem;
+  }
+
+  .date-month {
+      font-size: 0.8rem;
+  }
+
+  .event-title {
+      font-size: 1.2rem;
+  }
+}
+
+        /* Stats Section */
+        .stats-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-accent), var(--dark-accent));
+            color: white;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-accent);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 5rem;
+            color: rgba(79, 70, 229, 0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+            color: var(--gunmetal);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .author-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-accent);
+        }
+
+        .author-info h4 {
+            color: var(--gunmetal);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .author-info p {
+            color: var(--roman-silver);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-accent), var(--dark-accent));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cta-input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-btn {
+            padding: 1.2rem 2.5rem;
+            background: var(--secondary-accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-btn:hover {
+            background: #0da678;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Footer */
+      .main-footer {
+            background: var(--gunmetal);
+            color: var(--silver-sand);
+            padding: 6rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-accent);
+            border-radius: 10px;
+        }
+
+        .footer-about p {
+            color: var(--roman-silver);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            color: var(--silver-sand);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary-accent);
+            transform: translateY(-5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--roman-silver);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-accent);
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            color: var(--primary-accent);
+            width: 20px;
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--roman-silver);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-contact i {
+            color: var(--primary-accent);
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .newsletter-form {
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .newsletter-btn {
+            width: 100%;
+            background: var(--primary-accent);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--dark-accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 3rem 0 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: var(--roman-silver);
+            font-size: 1rem;
+        }
+
+        .footer-bottom a {
+            color: var(--silver-sand);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--primary-accent);
+        }
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 5px 20px rgba(79, 70, 229, 0.3);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--dark-accent);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1.5rem 3rem;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.2rem;
+            }
+
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                padding: 180px 1.5rem 80px;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                padding: 160px 1rem 60px;
+            }
+            
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .filter-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation Bar -->
+    <nav>
+    <a href="index.html" class="logo">MULAQAAT</a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="ruevents.html">Events</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="learn.html">Learn More</a>
+    </div>
+
+    <div class="auth-buttons">
+      <a href="login.html" class="btn login">Log In</a>
+      <a href="signup.html" class="btn signup">Sign Up</a>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="overlay-content">
+      <a href="#" class="close-btn" id="closeMenu">&times;</a>
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="ruevents.html">Events</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="learn.html">Learn More</a>
+      <a href="login.html" class="btn login">Log In</a>
+      <a href="signup.html" class="btn signup">Sign Up</a>
+    </div>
+  </div>
+  
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Experience Extraordinary Events</h1>
+            <p class="hero-subtitle">Discover our curated collection of unforgettable moments captured from spectacular events we've created. Each gallery tells a unique story of celebration, elegance, and perfect execution.</p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn-primary"><i class="fas fa-images"></i> Explore Gallery</a>
+                <a href="#events" class="btn-secondary"><i class="fas fa-calendar-alt"></i> Upcoming Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Gallery -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-header">
+            <h2 class="section-title">Our Event Gallery</h2>
+            <p class="section-subtitle">Browse through our collection of meticulously planned and executed events. Each image captures the essence of celebration and the magic we create.</p>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all"><i class="fas fa-th"></i> All Events</button>
+            <button class="filter-btn" data-filter="wedding"><i class="fas fa-ring"></i> Weddings</button>
+            <button class="filter-btn" data-filter="corporate"><i class="fas fa-briefcase"></i> Corporate</button>
+            <button class="filter-btn" data-filter="social"><i class="fas fa-glass-cheers"></i> Social</button>
+            <button class="filter-btn" data-filter="concert"><i class="fas fa-music"></i> Concerts</button>
+        </div>
+        
+        <div class="gallery-grid">
+            <!-- Event 1 -->
+            <div class="gallery-item visible" data-category="wedding">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Royal Wedding" class="gallery-image">
+                <div class="gallery-overlay">
+                    <h3 class="event-title">Royal Garden Wedding</h3>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar"></i> June 15, 2023</span>
+                        <span><i class="fas fa-users"></i> 250 Guests</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Grand Palace</span>
+                    </div>
+                    <p class="event-description">A breathtaking garden wedding with floral arrangements and outdoor ceremony under the stars.</p>
+                    <div class="gallery-actions">
+                        <button class="action-btn"><i class="fas fa-expand"></i> View</button>
+                        <button class="action-btn"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-heart"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Event 2 -->
+            <div class="gallery-item visible" data-category="corporate">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Corporate Event" class="gallery-image">
+                <div class="gallery-overlay">
+                    <h3 class="event-title">Tech Conference 2023</h3>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar"></i> May 22, 2023</span>
+                        <span><i class="fas fa-users"></i> 500+ Attendees</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Convention Center</span>
+                    </div>
+                    <p class="event-description">Annual technology conference featuring industry leaders and innovators from around the world.</p>
+                    <div class="gallery-actions">
+                        <button class="action-btn"><i class="fas fa-expand"></i> View</button>
+                        <button class="action-btn"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-heart"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Event 3 -->
+            <div class="gallery-item visible" data-category="social">
+                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Birthday Party" class="gallery-image">
+                <div class="gallery-overlay">
+                    <h3 class="event-title">Sweet 16 Celebration</h3>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar"></i> April 10, 2023</span>
+                        <span><i class="fas fa-users"></i> 120 Guests</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Luxury Mansion</span>
+                    </div>
+                    <p class="event-description">A magical sweet sixteen party with enchanted forest theme and custom decorations.</p>
+                    <div class="gallery-actions">
+                        <button class="action-btn"><i class="fas fa-expand"></i> View</button>
+                        <button class="action-btn"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-heart"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Event 4 -->
+            <div class="gallery-item visible" data-category="concert">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Music Festival" class="gallery-image">
+                <div class="gallery-overlay">
+                    <h3 class="event-title">Summer Music Festival</h3>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar"></i> July 8, 2023</span>
+                        <span><i class="fas fa-users"></i> 3000+ Attendees</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Riverside Park</span>
+                    </div>
+                    <p class="event-description">Annual summer music festival featuring top artists and local talents across three stages.</p>
+                    <div class="gallery-actions">
+                        <button class="action-btn"><i class="fas fa-expand"></i> View</button>
+                        <button class="action-btn"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-heart"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Event 5 -->
+            <div class="gallery-item visible" data-category="wedding">
+                <img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Beach Wedding" class="gallery-image">
+                <div class="gallery-overlay">
+                    <h3 class="event-title">Beachfront Wedding</h3>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar"></i> March 28, 2023</span>
+                        <span><i class="fas fa-users"></i> 80 Guests</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Coral Bay</span>
+                    </div>
+                    <p class="event-description">Intimate beach wedding ceremony at sunset with ocean backdrop and barefoot elegance.</p>
+                    <div class="gallery-actions">
+                        <button class="action-btn"><i class="fas fa-expand"></i> View</button>
+                        <button class="action-btn"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-heart"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Event 6 -->
+            <div class="gallery-item visible" data-category="corporate">
+                <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Product Launch" class="gallery-image">
+                <div class="gallery-overlay">
+                    <h3 class="event-title">Product Launch Event</h3>
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar"></i> February 15, 2023</span>
+                        <span><i class="fas fa-users"></i> 200 Attendees</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Innovation Hub</span>
+                    </div>
+                    <p class="event-description">Exclusive product launch with immersive brand experience and cutting-edge technology.</p>
+                    <div class="gallery-actions">
+                        <button class="action-btn"><i class="fas fa-expand"></i> View</button>
+                        <button class="action-btn"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-heart"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <!-- Upcoming Events Section -->
+    <section class="events-section" id="events">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming Events</h2>
+                <p class="section-subtitle">Discover our latest events and gatherings</p>
+            </div>
+
+            <div class="events-grid">
+                <!-- Event Card 1 -->
+                <article class="event-card">
+                    <figure class="event-image">
+                        <img src="Images/io1.png" alt="Tech Summit">
+                        <div class="event-date">
+                            <span class="date-day">10</span>
+                            <span class="date-month">Aug</span>
+                        </div>
+                    </figure>
+                    <div class="event-content">
+                        <h3 class="event-title">Annual Tech Summit</h3>
+                        <div class="event-meta">
+                            <span class="event-location"><i class="fas fa-map-marker-alt"></i> NUST University,
+                                Islamabad</span>
+                            <span class="event-time"><i class="fas fa-clock"></i> 9:00 AM</span>
+                        </div>
+                        <p class="event-description">Join industry leaders for a day of Innovation and Networking in the
+                            heart of Pakistan.</p>
+                        <a href="event1.html" class="btn event-cta">Book Tickets</a>
+                    </div>
+                </article>
+
+                <!-- Event Card 2 -->
+                <article class="event-card">
+                    <figure class="event-image">
+                        <img src="Images/io5.jpg" alt="Business Summit">
+                        <div class="event-date">
+                            <span class="date-day">15</span>
+                            <span class="date-month">SEP</span>
+                        </div>
+                    </figure>
+                    <div class="event-content">
+                        <h3 class="event-title">Industry Insights Summit</h3>
+                        <div class="event-meta">
+                            <span class="event-location"><i class="fas fa-map-marker-alt"></i> Marriott Hotel,
+                                Islamabad</span>
+                            <span class="event-time"><i class="fas fa-clock"></i> 11:00 AM</span>
+                        </div>
+                        <p class="event-description">Discover the latest trends in growing Industries with top Industry
+                            Professionals.</p>
+                        <a href="event2.html" class="btn event-cta">Book Tickets</a>
+                    </div>
+                </article>
+
+                <!-- Event Card 3 -->
+                <article class="event-card">
+                    <figure class="event-image">
+                        <img src="Images/io3.png" alt="Space Week">
+                        <div class="event-date">
+                            <span class="date-day">4-9</span>
+                            <span class="date-month">NOV</span>
+                        </div>
+                    </figure>
+                    <div class="event-content">
+                        <h3 class="event-title">Space Week</h3>
+                        <div class="event-meta">
+                            <span class="event-location"><i class="fas fa-map-marker-alt"></i>Space Hub,
+                                Islamabad</span>
+                            <span class="event-time"><i class="fas fa-clock"></i> 10AM-1PM</span>
+                        </div>
+                        <p class="event-description">Bring your little space explorers and blast off to fun!</p>
+                        <a href="event3.html" class="btn event-cta">Book Tickets</a>
+                    </div>
+                </article>
+
+                <!-- Event Card 4 -->
+                <article class="event-card">
+                    <figure class="event-image">
+                        <img src="Images/Concert.png" alt="Concert">
+                        <div class="event-date">
+                            <span class="date-day">20</span>
+                            <span class="date-month">SEP</span>
+                        </div>
+                    </figure>
+                    <div class="event-content">
+                        <h3 class="event-title">Junoon Concert</h3>
+                        <div class="event-meta">
+                            <span class="event-location"><i class="fas fa-map-marker-alt"></i>Citi Housing,
+                                Jhelum</span>
+                            <span class="event-time"><i class="fas fa-clock"></i> 9:00 PM</span>
+                        </div>
+                        <p class="event-description">Get ready to rock with the legendary Pakistani band "Junoon"</p>
+                        <a href="event4.html" class="btn event-cta">Book Tickets</a>
+                    </div>
+                </article>
+
+                <!-- Event Card 5 -->
+                <article class="event-card">
+                    <figure class="event-image">
+                        <img src="Images/Post.png" alt="Hackathon">
+                        <div class="event-date">
+                            <span class="date-day">25</span>
+                            <span class="date-month">NOV</span>
+                        </div>
+                    </figure>
+                    <div class="event-content">
+                        <h3 class="event-title">AI Hackathon</h3>
+                        <div class="event-meta">
+                            <span class="event-location"><i class="fas fa-map-marker-alt"></i> Fast University,
+                                Islamabad</span>
+                            <span class="event-time"><i class="fas fa-clock"></i> 10:00 AM</span>
+                        </div>
+                        <p class="event-description">Discover your coding strength and win grand prizes</p>
+                        <a href="event5.html" class="btn event-cta">Book Tickets</a>
+                    </div>
+                </article>
+
+                <!-- Event Card 6 -->
+                <article class="event-card">
+                    <figure class="event-image">
+                        <img src="Images/tech event.jpeg" alt="AI & Tech Summit">
+                        <div class="event-date">
+                            <span class="date-day">10</span>
+                            <span class="date-month">JAN</span>
+                        </div>
+                    </figure>
+                    <div class="event-content">
+                        <h3 class="event-title">AI & TECH Summit</h3>
+                        <div class="event-meta">
+                            <span class="event-location"><i class="fas fa-map-marker-alt"></i> FAST University,
+                                Lahore</span>
+                            <span class="event-time"><i class="fas fa-clock"></i> 11:00 AM</span>
+                        </div>
+                        <p class="event-description">Unlock the future of Innovation: Join the AI & Tech Summit!</p>
+                        <a href="event6.html" class="btn event-cta">Book Tickets</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="stat-number" data-count="2054">0</div>
+                <div class="stat-text">Events Organized</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-smile"></i></div>
+                <div class="stat-number" data-count="2100">0</div>
+                <div class="stat-text">Client Satisfaction</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-award"></i></div>
+                <div class="stat-number" data-count="10">0</div>
+                <div class="stat-text">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" data-count="45">0</div>
+                <div class="stat-text">Team Members</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="section-header">
+            <h2 class="section-title">Client Testimonials</h2>
+            <p class="section-subtitle">Hear what our clients have to say about our exceptional event planning services</p>
+        </div>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "MULAQAAT transformed our wedding into a magical experience. Their attention to detail was impeccable, and they handled everything so professionally. 
+                   They made our day
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1976&q=80" alt="Sarah Johnson" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Rida Kanwal</h4>
+                        <p>Wedding Client</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "The corporate retreat they organized for our company was outstanding. The team understood our vision perfectly and executed it flawlessly. Our employees are still talking about the experience months later!"
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Michael Chen" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Mir Humayoun</h4>
+                        <p>Corporate Client</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "My daughter's sweet sixteen was beyond anything we imagined. The theme, decorations, and entertainment were perfect. Thank you for making her day so special and stress-free for our family!"
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Priya Patel" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Priya Patel</h4>
+                        <p>Birthday Celebration Client</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Ready to Create Your Perfect Event?</h2>
+            <p class="cta-text">Join thousands of satisfied clients who have experienced our exceptional event planning services</p>
+            <form class="cta-form">
+                <input type="email" class="cta-input" placeholder="Enter your email address" required>
+                <button type="submit" class="cta-btn">Get Started <i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+   
+     <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About MULAQAAT</h3>
+                <div class="footer-about">
+                    <p>Creating unforgettable experiences through exceptional event planning since 2015. We transform
+                        visions into reality with creativity and precision.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                     
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="ruevents.html"><i class="fas fa-chevron-right"></i> Events</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    <li><a href="learn.html"><i class="fas fa-chevron-right"></i> Learn More</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-map-marker-alt"></i> Qazi Street, Citi Housing, Jhelum, Punjab 49600</li>
+                    <li><i class="fas fa-phone"></i> +92 313-4582342</li>
+                    <li><i class="fas fa-envelope"></i> info@mulaqaat.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for event inspiration and exclusive offers</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2015-2025 MULAQAAT. All rights reserved.
+                <a href="learn.html">Privacy Policy</a> |
+                <a href="learn.html">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Create animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const colors = ['rgba(79, 70, 229, 0.1)', 'rgba(67, 56, 202, 0.1)', 'rgba(16, 185, 129, 0.1)'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 30 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Scroll animations
+        function animateOnScroll() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                const itemPosition = item.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight * 0.8;
+                
+                if (itemPosition < screenPosition) {
+                    item.classList.add('visible');
+                }
+            });
+        }
+        
+        // Filter gallery
+        function filterGallery() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Show/hide gallery items based on filter
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Animated stats counter
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const statsSection = document.querySelector('.stats-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        statNumbers.forEach(stat => {
+                            const target = parseInt(stat.getAttribute('data-count'));
+                            const duration = 2000;
+                            const increment = target / (duration / 16);
+                            let current = 0;
+                            
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    clearInterval(timer);
+                                    stat.textContent = target;
+                                } else {
+                                    stat.textContent = Math.floor(current);
+                                }
+                            }, 16);
+                        });
+                        
+                        // Disconnect after animating
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(statsSection);
+        }
+        
+        // Scroll event for navbar
+        function handleNavScroll() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+        
+        // Back to top button
+        function setupBackToTop() {
+            const backToTop = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            filterGallery();
+            handleNavScroll();
+            setupBackToTop();
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Initial check
+            
+            animateStats();
+        });
+    </script>
+</body>
+</html>
