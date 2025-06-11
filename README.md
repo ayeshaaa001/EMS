@@ -1,2 +1,2 @@
 # EMS
-EMS is a web-based event management system.
+EMS named as MULAQAAT is a web-based event management system. 
